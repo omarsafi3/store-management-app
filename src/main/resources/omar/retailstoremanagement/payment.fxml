@@ -3,41 +3,38 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omar.retailstoremanagement.payment">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="508.0" styleClass="pay" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omar.retailstoremanagement.payment">
    <children>
-      <Label layoutX="235.0" layoutY="48.0" prefHeight="74.0" prefWidth="247.0" text="Choose Payment method" />
-      <Button fx:id="confirm" layoutX="320.0" layoutY="420.0" mnemonicParsing="false" onAction="#confirm" prefHeight="68.0" prefWidth="143.0" style="-fx-background-color: green;" text="Confirm" />
-      <Button fx:id="cancel" layoutX="140.0" layoutY="420.0" mnemonicParsing="false" onAction="#cancel" prefHeight="68.0" prefWidth="143.0" style="-fx-background-color: red;" text="Cancel" />
-      <Button layoutX="121.0" layoutY="272.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="162.0" text="MasterCard" />
-      <Button layoutX="320.0" layoutY="272.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="162.0" text="AmEx" />
-      <Button layoutX="121.0" layoutY="137.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="162.0" text="Cash" />
-      <Button layoutX="320.0" layoutY="137.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="162.0" text="Visa" />
-      <RadioButton fx:id="cash" layoutX="89.0" layoutY="170.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
-      <RadioButton fx:id="visa" layoutX="492.0" layoutY="148.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="40.0" />
-      <RadioButton fx:id="amex" layoutX="492.0" layoutY="257.0" mnemonicParsing="false" prefHeight="139.0" prefWidth="89.0" />
-      <RadioButton fx:id="mcard" layoutX="93.0" layoutY="306.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
-      <Label layoutX="26.0" layoutY="170.0" prefHeight="17.0" prefWidth="55.0" text="Cash">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="TOP" layoutX="4.0" layoutY="270.0" prefHeight="115.0" prefWidth="89.0" text="Master Card" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="TOP" layoutX="517.0" layoutY="129.0" prefHeight="124.0" prefWidth="100.0" text="Visa" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="TOP" layoutX="517.0" layoutY="264.0" prefHeight="124.0" prefWidth="100.0" text="AmEx" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="14.0" prefHeight="42.0" prefWidth="247.0" text="Choose Payment method" />
+      <Button fx:id="confirm" layoutX="281.0" layoutY="279.0" mnemonicParsing="false" onAction="#confirm" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: green;" text="Confirm" />
+      <Button fx:id="cancel" layoutX="124.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancel" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: red;" text="Cancel" />
+      <RadioButton fx:id="cash" layoutX="238.0" layoutY="80.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
+      <RadioButton fx:id="visa" layoutX="238.0" layoutY="130.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
+      <RadioButton fx:id="amex" layoutX="239.0" layoutY="230.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
+      <RadioButton fx:id="mcard" layoutX="239.0" layoutY="180.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="32.0" />
+      <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="270.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/visa.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="270.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/mastercard.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="270.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/cash.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="270.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/amex.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

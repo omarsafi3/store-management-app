@@ -1,12 +1,3 @@
-/*
-    Created on : 11/09/2022, 08:00:15
-    Author     : Gleidson Neves da Silveira
-*/
-
-/*
-   @Color System
-
-*/
 
 
 .root {
@@ -84,7 +75,9 @@ Text {
 }
 
 
-
+.pay {
+    -fx-background-image: url("payment.png");
+}
 .table-view .corner {
     -fx-background-color: transparent;
 }
