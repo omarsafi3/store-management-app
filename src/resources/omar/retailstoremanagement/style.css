@@ -76,7 +76,10 @@ Text {
 
 
 .pay {
-    -fx-background-image: url("payment.png");
+    -fx-background-image: url("payment.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 1%;
+    -fx-background-size: auto;
 }
 .table-view .corner {
     -fx-background-color: transparent;

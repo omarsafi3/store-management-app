@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +33,8 @@ public class MainWindow {
 
     @FXML
     private Button confirm;
+    double width = 1600;
+    double height = 979;
 
     private double total;
     private ObservableList<refDB> data = FXCollections.observableArrayList();
@@ -69,10 +73,10 @@ public class MainWindow {
 
     public void initialize() {
         // Associate each TableColumn with the correct property of the refDB class
-        lb.setCellValueFactory(new PropertyValueFactory<>("label"));
-        sz.setCellValueFactory(new PropertyValueFactory<>("size"));
-        cl.setCellValueFactory(new PropertyValueFactory<>("color"));
-        pr.setCellValueFactory(new PropertyValueFactory<>("price"));
+        lb.setCellValueFactory(new PropertyValueFactory<refDB, String>("label"));
+        sz.setCellValueFactory(new PropertyValueFactory<refDB, String>("size"));
+        cl.setCellValueFactory(new PropertyValueFactory<refDB, String>("color"));
+        pr.setCellValueFactory(new PropertyValueFactory<refDB, String>("price"));
     }
 
 
@@ -97,6 +101,7 @@ public class MainWindow {
         refDB refdb = new refDB(null, null, null, null);
         refdb.setRef(reftext.getText());
         if (refdb.getData() == 1) {
+            payment.setDisable(false);
             total = total + Double.parseDouble(refdb.getPrice());
             totalPrice.setText(String.format("Total: %.3fDT", total));
             refList.add(reftext.getText());
@@ -120,6 +125,9 @@ public class MainWindow {
         data.remove(data.size()-1);
         tb.refresh();
         refList.remove(refList.size()-1);
+        if (data.size() == 0) {
+            payment.setDisable(true);
+        }
     }
 
     @FXML
@@ -153,6 +161,27 @@ public class MainWindow {
             e.printStackTrace();
         }
     }
+
+
+
+    @FXML
+    public void salesWindow(MouseEvent event) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sales.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Sales");
+        stage.setScene(new Scene(root));
+        stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 
 
 
