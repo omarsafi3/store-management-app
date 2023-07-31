@@ -21,12 +21,15 @@ public class refDB {
     public String price;
     public String size;
     public String color;
+    public String date;
 
-    public refDB(String Label,String size, String color, String price) throws SQLException {
+    public refDB(String Label,String size, String color, String price, String ref, String date) throws SQLException {
         this.label = Label;
         this.size = size;
         this.color = color;
         this.price = price;
+        this.date = date;
+        this.ref = ref;
     }
 
     @FXML
@@ -81,6 +84,12 @@ public class refDB {
     }
     public String getColor() {
         return color;
+    }
+    public String getDate() {
+        return date;
+    }
+    public String getRef() {
+        return ref;
     }
 }
 

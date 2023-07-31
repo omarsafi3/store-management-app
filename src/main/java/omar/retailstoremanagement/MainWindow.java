@@ -52,6 +52,8 @@ public class MainWindow {
     private TableColumn<refDB, String> cl;
     @FXML
     private TableColumn<refDB, String> pr;
+    @FXML
+    private TableColumn<refDB, String> rf;
 
     @FXML
     public TextField reftext;
@@ -77,6 +79,7 @@ public class MainWindow {
         sz.setCellValueFactory(new PropertyValueFactory<refDB, String>("size"));
         cl.setCellValueFactory(new PropertyValueFactory<refDB, String>("color"));
         pr.setCellValueFactory(new PropertyValueFactory<refDB, String>("price"));
+        rf.setCellValueFactory(new PropertyValueFactory<refDB, String>("ref"));
     }
 
 
@@ -98,7 +101,7 @@ public class MainWindow {
     @FXML
     void confirm(ActionEvent event) throws Exception {
 
-        refDB refdb = new refDB(null, null, null, null);
+        refDB refdb = new refDB(null, null, null, null, null , null);
         refdb.setRef(reftext.getText());
         if (refdb.getData() == 1) {
             payment.setDisable(false);

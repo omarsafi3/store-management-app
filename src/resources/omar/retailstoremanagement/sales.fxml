@@ -14,17 +14,6 @@
 
 <AnchorPane fx:id="rootNode" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1600.0" styleClass="home" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omar.retailstoremanagement.salesWindow">
    <children>
-      <TableView fx:id="tb" layoutX="270.0" layoutY="232.0" prefHeight="528.0" prefWidth="1337.0">
-        <columns>
-          <TableColumn fx:id="lb" prefWidth="75.0" styleClass="lab" text="Label" />
-          <TableColumn fx:id="sz" prefWidth="75.0" styleClass="sz" text="Size" />
-            <TableColumn fx:id="cl" prefWidth="75.0" styleClass="cl" text="Color" />
-            <TableColumn fx:id="pr" prefWidth="75.0" styleClass="pr" text="Price" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
       <Label fx:id="totalPrice" layoutX="1014.0" layoutY="871.0" prefHeight="64.0" prefWidth="369.0" text="Total:" textFill="RED">
          <font>
             <Font name="Comic Sans MS Bold" size="32.0" />
@@ -32,9 +21,19 @@
       </Label>
       <Pane layoutX="-1.0" prefHeight="235.0" prefWidth="1600.0" styleClass="welcome">
          <children>
-            <DatePicker layoutX="677.0" layoutY="100.0" prefHeight="45.0" prefWidth="213.0" />
-            <TextField fx:id="ref" layoutX="408.0" layoutY="110.0" prefHeight="30.0" prefWidth="188.0" />
-            <Button layoutX="476.0" layoutY="163.0" mnemonicParsing="false" onAction="#search" text="Button" />
+            <DatePicker fx:id="datePicker" layoutX="983.0" layoutY="133.0" prefHeight="30.0" prefWidth="180.0" promptText="Select Date" />
+            <TextField fx:id="refPicker" layoutX="482.0" layoutY="133.0" prefHeight="30.0" prefWidth="188.0" promptText="Type Reference..." />
+            <Button layoutX="800.0" layoutY="196.0" mnemonicParsing="false" onAction="#search" text="Search" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="519.0" layoutY="86.0" prefHeight="30.0" prefWidth="129.0" text="Reference">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1009.0" layoutY="86.0" prefHeight="30.0" prefWidth="129.0" text="Date">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
          </children></Pane>
       <Pane fx:id="navbar" layoutY="-1.0" prefHeight="989.0" prefWidth="276.0" styleClass="navbar">
          <children>
@@ -63,6 +62,19 @@
             </Label>
          </children>
       </Pane>
+      <TableView fx:id="tb" layoutX="275.0" layoutY="232.0" prefHeight="528.0" prefWidth="1332.0">
+        <columns>
+            <TableColumn fx:id="rf" prefWidth="75.0" text="Reference" />
+            <TableColumn fx:id="date" prefWidth="75.0" text="date" />
+          <TableColumn fx:id="lb" prefWidth="75.0" styleClass="lab" text="Label" />
+          <TableColumn fx:id="sz" prefWidth="75.0" styleClass="sz" text="Size" />
+            <TableColumn fx:id="cl" prefWidth="75.0" styleClass="cl" text="Color" />
+            <TableColumn fx:id="pr" prefWidth="75.0" styleClass="pr" text="Price" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
    <effect>
       <Blend />
