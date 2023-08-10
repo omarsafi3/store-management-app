@@ -10,20 +10,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class salesWindow {
-
-
+    private String user;
+    @FXML
+    private Label sTotal;
     @FXML
     private TableView<refDB> tb;
     @FXML
@@ -39,6 +36,10 @@ public class salesWindow {
     @FXML
     private TableColumn<refDB, String> date;
     @FXML
+    private TableColumn<refDB, String> quant;
+    @FXML
+    private ComboBox<String> storeUser;
+    @FXML
     private Label totalPrice;
     @FXML
     private DatePicker datePicker;
@@ -50,39 +51,68 @@ public class salesWindow {
     @FXML
     void search() {
         data.removeAll(data);
+        double supposedTotal = 0;
         double total = 0;
         totalPrice.setText("");
         System.out.println(refPicker.getText());
+        if (storeUser.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No store selected");
+            alert.setContentText("Please select a store");
+            alert.showAndWait();
+            return;
+        }
         try (Connection con = DriverManager.getConnection("jdbc:mysql://omars.mysql.database.azure.com:3306", "omar", "Amrou2009@")) {
             try (Statement stmt = con.createStatement()) {
                 stmt.executeUpdate("USE stockdb");
                 if (refPicker.getText().equals("")){
-                    ResultSet rs = stmt.executeQuery("SELECT pr.ref, size, price, label, color, payment_date\n" +
+                    ResultSet rs = stmt.executeQuery("SELECT pr.ref, pr.size, price, pr.label, total, pr.color, payment_date\n" +
                             "FROM stock as s, payments as p, payment_references as pr\n" +
                             "WHERE s.ref = pr.ref AND p.payment_id = pr.payment_id\n" +
-                            "AND p.payment_date = '" + datePicker.getValue() + "'");
+                            "AND store_user = '" + storeUser.getValue() + "'\n" +
+                            "AND payment_date = '" + datePicker.getValue() + "'");
                     while (rs.next()) {
+                        supposedTotal += rs.getDouble("price");
                         String formattedPrice = String.format("%.3f", Double.parseDouble(rs.getString("price")));
-                        data.add(new refDB(rs.getString("label"), rs.getString("size"), rs.getString("color"), formattedPrice, rs.getString("ref"), rs.getString("payment_date")));
+                        data.add(new refDB(rs.getString("label"), rs.getString("size"), rs.getString("color"), formattedPrice, rs.getString("ref"), rs.getString("payment_date"), "0",""));
+                        total += rs.getDouble("total");
                         tb.setItems(data);
+                    }
+                    ResultSet rs2 = stmt.executeQuery("SELECT SUM(total) as total FROM payments, payment_references\n" +
+                            "WHERE payment_date = '" + datePicker.getValue() + "'\n" +
+                            "AND store_user = '" + storeUser.getValue() + "'\n" +
+                            "AND payments.payment_id = payment_references.payment_id");
+                    while (rs2.next()){
+                        totalPrice.setText(String.format("Total (With Discounts): %.3fDT", rs2.getDouble("total")));
                     }
                 }
                 else {
-                    ResultSet rs = stmt.executeQuery("SELECT pr.ref, size, price, label, color, payment_date\n" +
+                    ResultSet rs = stmt.executeQuery("SELECT pr.ref, pr.size, price, pr.label, total, pr.color, payment_date\n" +
                             "FROM stock as s, payments as p, payment_references as pr\n" +
                             "WHERE s.ref = pr.ref AND p.payment_id = pr.payment_id\n" +
+                            "AND store_user = '" + storeUser.getValue() + "'\n" +
                             "AND pr.ref = '" + refPicker.getText() + "' AND p.payment_date = '" + datePicker.getValue() + "'");
                     while (rs.next()) {
+                        supposedTotal += rs.getDouble("price");
                         String formattedPrice = String.format("%.3f", Double.parseDouble(rs.getString("price")));
-                        data.add(new refDB(rs.getString("label"), rs.getString("size"), rs.getString("color"), formattedPrice, rs.getString("ref"), rs.getString("payment_date")));
+                        data.add(new refDB(rs.getString("label"), rs.getString("size"), rs.getString("color"), formattedPrice, rs.getString("ref"), rs.getString("payment_date"), "0",""));
+                        total += rs.getDouble("total");
                         tb.setItems(data);
+                    }
+                    ResultSet rs2 = stmt.executeQuery("SELECT SUM(total) as total FROM payments, payment_references\n" +
+                            "WHERE payments.payment_id = payment_references.payment_id\n" +
+                            "AND payment_references.ref = '" + refPicker.getText() + "\n'" +
+                            "AND store_user = '" + storeUser.getValue() + "'\n" +
+                            "AND payments.payment_date = '" + datePicker.getValue() + "'");
+                    while (rs2.next()){
+                        totalPrice.setText(String.format("Total (With Discounts): %.3fDT", rs2.getDouble("total")));
                     }
                 }
 
-                for (refDB refDB : data) {
-                    total += Double.parseDouble(refDB.getPrice());
-                    totalPrice.setText(String.format("Total : %.3fDT", total));
-            }
+
+            sTotal.setText(String.format("Total: %.3fDT", supposedTotal));
+
 
             }
         }
@@ -93,16 +123,48 @@ public class salesWindow {
 
     }
     @FXML
+    public void chartsWindow(MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("charts.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            chartsWindow charts = loader.getController();
+            charts.setUser(user);
+            stage.setTitle("Charts");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     public void addPayments(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            MainWindow main = loader.getController();
+            main.setUser(user);
             stage.setTitle("Sales");
             stage.setScene(new Scene(root));
             stage.show();
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void SetBoxStore() {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://omars.mysql.database.azure.com:3306", "omar", "Amrou2009@")) {
+            try (Statement stmt = con.createStatement()) {
+                stmt.executeUpdate("USE usersdb");
+                ResultSet rs = stmt.executeQuery("SELECT username FROM users where has_access = 'user'");
+                while (rs.next()) {
+                    storeUser.getItems().add(rs.getString("username"));
+                }
+            }
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -115,7 +177,29 @@ public class salesWindow {
         rf.setCellValueFactory(new PropertyValueFactory<refDB, String>("ref"));
         date.setCellValueFactory(new PropertyValueFactory<refDB, String>("date"));
         datePicker.setValue(LocalDate.now());
+        SetBoxStore();
 
+    }
+    @FXML
+    void stockWindow(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("stock.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stockWindow stock = loader.getController();
+            stock.setUser(user);
+            stage.setTitle("Stock");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void setUser(String user) {
+        this.user = user;
     }
 
 

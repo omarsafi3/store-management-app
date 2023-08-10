@@ -22,7 +22,7 @@
          </font>
       </Label>
       <PasswordField id="pass" fx:id="pass" layoutX="561.0" layoutY="120.0" prefHeight="52.0" prefWidth="163.0" promptText="Type Password" />
-      <Button layoutX="594.0" layoutY="204.0" mnemonicParsing="false" onAction="#login" prefHeight="37.0" prefWidth="98.0" text="Login" />
+      <Button layoutX="594.0" layoutY="204.0" mnemonicParsing="false" onAction="#confirm" prefHeight="37.0" prefWidth="98.0" text="Login" />
       <Label fx:id="wrong" alignment="CENTER" contentDisplay="CENTER" layoutX="271.0" layoutY="233.0" prefHeight="25.0" prefWidth="261.0" />
       <Pane layoutX="-9.0" layoutY="-6.0" prefHeight="278.0" prefWidth="400.0" style="-fx-background-color: grey;">
          <children>

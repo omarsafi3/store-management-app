@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootNode" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1600.0" styleClass="home" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omar.retailstoremanagement.chartsWindow">
+   <children>
+      <Pane layoutX="-1.0" prefHeight="235.0" prefWidth="1600.0" styleClass="welcome" />
+      <Pane fx:id="navbar" layoutY="-1.0" prefHeight="989.0" prefWidth="276.0" styleClass="navbar">
+         <children>
+            <Label alignment="CENTER" layoutY="310.0" onMouseClicked="#addPayments" prefHeight="64.0" prefWidth="276.0" text="Add Payments" textFill="#9785a8">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="26.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="39.0" layoutY="21.0" prefHeight="116.0" prefWidth="188.0" text="RSMS" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold Italic" size="62.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="29.0" layoutY="111.0" prefHeight="57.0" prefWidth="213.0" text="Made by Omar Safi" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="21.0" />
+               </font>
+            </Label>
+            <Separator layoutX="-17.0" layoutY="226.0" prefHeight="19.0" prefWidth="292.0" />
+            <Separator layoutX="-8.0" layoutY="248.0" prefHeight="19.0" prefWidth="284.0" />
+            <Separator layoutX="-16.0" layoutY="237.0" prefHeight="19.0" prefWidth="292.0" />
+            <Label alignment="CENTER" layoutY="396.0" onMouseClicked="#salesWindow" prefHeight="64.0" prefWidth="276.0" text="Sales" textFill="#9785a8">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="26.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="482.0" onMouseClicked="#stockWindow" prefHeight="64.0" prefWidth="276.0" text="Stock" textFill="#9785a8">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="26.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="568.0" prefHeight="64.0" prefWidth="276.0" styleClass="addPayments" text="Charts" textFill="#9785a8">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="276.0" layoutY="233.0" prefHeight="750.0" prefWidth="1324.0" style="-fx-background-color: grey;">
+         <children>
+            <PieChart fx:id="pieChart" layoutX="772.0" layoutY="55.0" title="Sales by Reference (This Month )" />
+            <AreaChart layoutX="36.0" layoutY="39.0" prefHeight="431.0" prefWidth="540.0">
+              <xAxis>
+                <CategoryAxis label="Days" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="Money Made" side="LEFT" />
+              </yAxis>
+            </AreaChart>
+         </children>
+      </Pane>
+   </children>
+   <effect>
+      <Blend />
+   </effect>
+</AnchorPane>

@@ -12,10 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.sql.*;
-
 import java.io.IOException;
-import javafx.fxml.LoadException;
-import org.w3c.dom.Text;
+
 
 public class login {
     @FXML
@@ -24,13 +22,11 @@ public class login {
     TextField pass;
     @FXML
     Label wrong;
-    private Stage stage;
-    private Scene scene;
     double width = 1600;
     double height = 979;
 
 
-    public void login(ActionEvent event) throws IOException {
+    public void confirm(ActionEvent event) throws IOException {
         String username = user.getText();
         String password = pass.getText();
 
@@ -47,13 +43,13 @@ public class login {
                 while (resultSet.next()) {
                     String name = resultSet.getString("username");
                     String storedPassword = resultSet.getString("pass");
-                    String has_access = resultSet.getString("has_access");
-
                     // Check if the username and password match any of the users
                     if (username.equals(name) && password.equals(storedPassword)) {
                         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
-                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        scene = new Scene(fxmlLoader.load());
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(fxmlLoader.load());
+                        MainWindow mainWindow = fxmlLoader.getController();
+                        mainWindow.setUser(name);
                         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
                         stage.setX((screenBounds.getWidth() - width) / 2);
                         stage.setY((screenBounds.getHeight() - height) / 2);
